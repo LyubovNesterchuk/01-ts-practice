@@ -5,7 +5,29 @@
 
 import axios from "axios";
 
-const fetchPosts = async () => {
-  const response = await axios.get("https://jsonplaceholder.typicode.com/posts");
+interface Post{
+    userId: number;
+    id: number;
+    title: string;
+    body: string;
+}
+const fetchPosts = async ():Promise<Post[]> => {
+  const response = await axios.get<Post[]>("https://jsonplaceholder.typicode.com/posts");
   return response.data;
 };
+
+const logThreePosts = async (): Promise<void> => {
+  try {
+    const posts = await fetchPosts();
+    const firstThree = posts.slice(0, 3);
+    firstThree.forEach((post) => {
+      console.log(`Title: ${post.title}`);
+      console.log(`Body: ${post.body}`);
+      console.log("------");
+    });
+  } catch (error) {
+    console.error("Failed to fetch posts:", error);
+  }
+};
+
+logThreePosts();

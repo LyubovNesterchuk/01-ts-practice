@@ -6,7 +6,12 @@
 // Оголоси тип Product для товару.
 // Додайте до функції явну типізацію, вкажіть, що вона повертає проміс, який приводиться до масиву товарів.
 
-function fetchProducts() {
+type Product = {
+    id: number;
+    title: string;
+    price: number;
+}
+function fetchProducts():Promise<Product[]> {
   return new Promise((resolve) => {
     setTimeout(() => {
       resolve([
